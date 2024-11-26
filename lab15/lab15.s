@@ -108,11 +108,13 @@
         la t0, int_handler
         csrw mtvec, t0
 
+        # Enable machine interrupts
         csrr t0, mie
         li t1, 0x800
         or t0, t0, t1
         csrw mie, t0
 
+        # Enable interrupts
         csrr t0, mstatus
         li t1, 0x8
         or t0, t0, t1
@@ -124,7 +126,7 @@
 
         # change to user mode
 
-        
+        # set mepc to user_main and mstatus to user mode
         csrr t1, mstatus
         li t2, ~0x1800
         and t1, t1, t2
